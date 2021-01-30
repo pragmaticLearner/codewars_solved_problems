@@ -1,0 +1,52 @@
+The problem is as follows:
+
+ls = [0, 1, 3, 6, 10]
+
+Its following parts:
+
+ls = [0, 1, 3, 6, 10]
+ls = [1, 3, 6, 10]
+ls = [3, 6, 10]
+ls = [6, 10]
+ls = [10]
+ls = []
+The corresponding sums are (put together in a list): [20, 20, 19, 16, 10, 0]
+
+The function parts_sums (or its variants in other languages) will take as parameter a list ls and return a list of the sums of its parts as defined above.
+
+
+Solving this problem had first led me to completing it simply, with a while loop:
+
+def _sum_of_parts(ls):
+
+    new_ls = []
+    t = 0
+
+    while ls:
+        t = sum(ls)
+        new_ls.append(t)
+        ls.remove(ls[0])
+    return new_ls + [0]
+
+print(_sum_of_parts([0, 1, 3, 6, 10]))
+
+>>> [20, 20, 19, 16, 10, 0]
+
+
+While this works, it's not practical. As the code wars illustrator states, solve this problem thinking about time complexity. Time complexity is a new topic for me
+(I have been reading on it for about a month) and so recursion and dynamic programming is a very new topic. DP is something I am not quite used to yet, however
+my understanding and created recursive method simplifies the above algorithm even if it does not have a large difference of time complexity. 
+
+def parts_sums(ls):
+    t = sum(ls)
+    new_ls = [t]
+
+    if not ls:
+        return new_ls
+    else:
+        return new_ls + parts_sums(ls[1:])
+
+
+print(parts_sums([0, 1, 3, 6, 10]))
+
+>>> [20, 20, 19, 16, 10, 0]
